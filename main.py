@@ -6,13 +6,10 @@ from streamlit_monaco import st_monaco
 
 # Kiểm tra kết nối với Docker
 try:
-    client = docker.from_env()
-    # Có thể thực hiện kiểm tra thêm như liệt kê các containers
-    client.containers.list()
-    st.write("Docker is connected and running.")
+    client = docker.DockerClient(base_url='npipe:////./pipe/docker_engine')
+    print(client.containers.list())
 except docker.errors.DockerException as e:
-    st.error(f"Error connecting to Docker: {e}")
-    st.stop()  # Dừng ứng dụng Streamlit nếu không kết nối được Docker
+    print(f"Error connecting to Docker: {e}")
 
 language = st.selectbox("Select Language", ["Java", "C"])
 print(language.lower())
