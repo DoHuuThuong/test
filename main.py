@@ -3,10 +3,13 @@ import streamlit as st
 from code_runner import run_code_in_docker
 from test_cases import get_test_cases
 from streamlit_monaco import st_monaco
+import platform
 
-# Thiết lập Docker host
-docker_host = 'npipe:////./pipe/docker_engine'  # Đối với Windows
-# docker_host = 'unix:///var/run/docker.sock'  # Đối với Unix/Linux
+# Kiểm tra hệ điều hành
+if platform.system() == "Windows":
+    docker_host = 'npipe:////./pipe/docker_engine'
+else:
+    docker_host = 'unix:///var/run/docker.sock'
 
 try:
     client = docker.DockerClient(base_url=docker_host)
