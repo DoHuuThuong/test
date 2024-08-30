@@ -2,7 +2,23 @@ import streamlit as st
 from code_runner import run_code_in_docker
 from test_cases import get_test_cases
 from streamlit_monaco import st_monaco
+import requests
 
+def execute_code(code, language):
+    api_url = "https://api.jdoodle.com/v1/execute"  # Example API endpoint
+    api_key = "YOUR_API_KEY"  # Replace with your API key
+    
+    payload = {
+        "script": code,
+        "language": language,
+        "versionIndex": "0",
+        "clientId": api_key,
+        "clientSecret": api_key,
+    }
+    
+    response = requests.post(api_url, json=payload)
+    result = response.json()
+    return result.get("output", "No output")
 language = st.selectbox("Select Language", ["Java", "C"])
 print(language.lower())
 content = st_monaco(
