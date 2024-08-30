@@ -6,7 +6,7 @@ from streamlit_monaco import st_monaco
 language = st.selectbox("Select Language", ["Java", "C"])
 print(language.lower())
 content = st_monaco(
-    value="// First line\nfunction hello() {\n\talert('Hello world!');\n}\n// Last line",
+    value="  public class Main {public static void main(String[] args) {int a = 5;int b = 10;System.out.println(a + b);}}",
     height="200px",
     language=f'{language.lower()}',
     lineNumbers=True,
